@@ -27,7 +27,6 @@ namespace BSCP
         {
             Logger.LogDebug("Hooking...");
 
-            ExampleShoppingCartPatch.Init();
             BigSlapPatch.Init(Logger);
 
             Logger.LogDebug("Finished Hooking!");
