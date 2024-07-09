@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zethtar.BSCP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47829d6a4ce8827ce8c6b3483ecc8e0ef3588782")]
 [assembly: System.Reflection.AssemblyProductAttribute("BSCP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zethtar.BSCP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

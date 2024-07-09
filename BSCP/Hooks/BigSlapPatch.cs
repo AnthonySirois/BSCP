@@ -1,16 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using BepInEx.Logging;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BSCP.Patches
 {
     public class BigSlapPatch
     {
-        private const float CONTAINMENT_TIME = 10f;
+        private const float CONTAINMENT_TIME_IN_SECONDS = 10f;
 
         private static Dictionary<Bot_BigSlap, float> containedMonsters = new Dictionary<Bot_BigSlap, float>();
+        private static ManualLogSource? Logger;
 
-        internal static void Init()
+        internal static void Init(ManualLogSource logger)
         {
+            Logger = logger;
             /*
              *  Subscribe with 'On.Namespace.Type.Method += CustomMethod;' for each method you're patching.
              *  Or if you are writing an ILHook, use 'IL.' instead of 'On.'
@@ -24,16 +27,14 @@ namespace BSCP.Patches
         {
             orig(self);
 
-            // MonoBehaviour.Destroy(self.gameObject.gameObject.gameObject.gameObject);
-            
+            // Destory the BigSlap when spawned
+            // MonoBehaviour.Destroy(self.transform.parent.gameObject);
 
-            // containedMonsters.TryAdd(self, Time.time + CONTAINMENT_TIME);
+            containedMonsters.TryAdd(self, Time.time + CONTAINMENT_TIME_IN_SECONDS);
         }
 
         private static void BigSlap_ComputeState(On.Bot_BigSlap.orig_ComputeState orig, Bot_BigSlap self)
         {
-            // MonoBehaviour.Destroy(self.gameObject.gameObject.gameObject);
-
             if (containedMonsters.TryGetValue(self, out float containmentEndTime))
             {
                 if (containmentEndTime < Time.time)
