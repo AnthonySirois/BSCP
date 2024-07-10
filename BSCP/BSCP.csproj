@@ -55,6 +55,7 @@
     <!-- References - Game Assemblies -->
     <ItemGroup Condition="$(CI) != 'true'">
         <Reference Include="$(ManagedDirectory)Assembly-CSharp.dll" Publicize="true" Private="false"/>
+		<Reference Include="$(ManagedDirectory)PhotonUnityNetworking.dll" Publicize="true" Private="false"/>
     </ItemGroup>
 
     <!-- Package References - Game Assemblies -->
