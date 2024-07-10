@@ -12,11 +12,14 @@ namespace BSCP
     {
         public static BSCP Instance { get; private set; } = null!;
         internal new static ManualLogSource Logger { get; private set; } = null!;
+        internal static BSCPConfig BoundConfig { get; private set; } = null!;
 
         private void Awake()
         {
             Logger = base.Logger;
             Instance = this;
+
+            BoundConfig = new BSCPConfig(base.Config);
 
             HookAll();
 
@@ -27,7 +30,7 @@ namespace BSCP
         {
             Logger.LogDebug("Hooking...");
 
-            BigSlapPatch.Init(Logger);
+            BigSlapPatch.Init();
 
             Logger.LogDebug("Finished Hooking!");
         }

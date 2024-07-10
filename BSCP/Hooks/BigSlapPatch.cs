@@ -7,22 +7,16 @@ namespace BSCP.Patches
 {
     public class BigSlapPatch
     {
-        private const float CONTAINMENT_TIME_IN_SECONDS = 5f;
-
         private static Dictionary<Bot_BigSlap, float> containedMonsters = new Dictionary<Bot_BigSlap, float>();
-        private static ManualLogSource? Logger;
 
-        internal static void Init(ManualLogSource logger)
+        internal static void Init()
         {
-            Logger = logger;
-            
-            if (false)
+            On.Bot_BigSlap.Start += BigSlap_Start_Nerf;
+
+            if (BSCP.BoundConfig.enableTemporaryFreeze.Value)
             {
                 On.Bot_BigSlap.Start += BigSlap_Start_WarnAndFreeze;
                 On.Bot_BigSlap.ComputeState += BigSlap_ComputeState_WarnAndFreeze;
-            } else
-            {
-                On.Bot_BigSlap.Start += BigSlap_Start_Nerf;
             }
         }
 
@@ -32,13 +26,14 @@ namespace BSCP.Patches
 
             GameObject root = self.transform.parent.gameObject;
             PlayerController botController = root.GetComponent<PlayerController>();
+
             if (botController != null)
             {
-                botController.sprintMultiplier = 3.5f;
-                botController.movementForce = 10f;
+                botController.movementForce *= BSCP.BoundConfig.movementMultiplier.Value;
+                botController.sprintMultiplier *= BSCP.BoundConfig.sprintMultiplier.Value;
             } else
             {
-                Logger?.LogError("Failed to find BigSlap.PlayerController");
+                BSCP.Logger.LogError("Failed to find BigSlap.PlayerController");
             }
         }
 
@@ -46,7 +41,7 @@ namespace BSCP.Patches
         {
             orig(self);
 
-            containedMonsters.TryAdd(self, Time.time + CONTAINMENT_TIME_IN_SECONDS);
+            containedMonsters.TryAdd(self, Time.time + BSCP.BoundConfig.freezeTime.Value);
 
             PlayWarningSound(self);
         }
