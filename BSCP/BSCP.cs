@@ -39,11 +39,6 @@ namespace BSCP
         {
             Logger.LogDebug("Unhooking...");
 
-            /*
-             *  HookEndpointManager is from MonoMod.RuntimeDetour.HookGen, and is used by the MMHOOK assemblies.
-             *  We can unhook all methods hooked with HookGen using this.
-             *  Or we can unsubscribe specific patch methods with 'On.Namespace.Type.Method -= CustomMethod;'
-             */
             HookEndpointManager.RemoveAllOwnedBy(Assembly.GetExecutingAssembly());
 
             Logger.LogDebug("Finished Unhooking!");
