@@ -1,0 +1,9 @@
+{
+    "name": "BSCP",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/AnthonySirois/BSCP",
+    "description": "Tone down the Big Slap/Giant/Titan monster to make him survivable",
+    "dependencies": [
+        "Hamunii-AutoHookGenPatcher-1.0.4"
+    ]
+}
